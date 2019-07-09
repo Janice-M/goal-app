@@ -3,7 +3,10 @@ import {Goal} from '../goal';
 import { from } from 'rxjs';
 import {Goals} from '../goals'
 import {GoalService} from '../goals/goal.service';
-import {AlertsService} from '../alert-service/alerts.service'
+import {AlertsService} from '../alert-service/alerts.service';
+import {HttpClient} from '@angular/common/http';
+
+import {Quote} from '../quote-class/quote';
 
 @Component({
   selector: 'app-goal',
@@ -12,7 +15,7 @@ import {AlertsService} from '../alert-service/alerts.service'
   styleUrls: ['./goal.component.css']
 })
 export class GoalComponent implements OnInit {
-
+  quote:Quote;
     goals:Goal[];
     alertService:AlertsService;
 
@@ -38,13 +41,20 @@ export class GoalComponent implements OnInit {
     goal.completeDate = new Date(goal.completeDate);
     this.goals.push(goal);
   }
-  constructor(goalService:GoalService,alertService:AlertsService) {
+  constructor(goalService:GoalService,alertService:AlertsService,private http:HttpClient) {
     this.goals = goalService.getGoals();
-    this.alertService = alertService;//make the service available to the class
-     
+    this.alertService = alertService;
+     }
+  
+   ngOnInit() {
+  
+      interface ApiResponse{
+          quote:string;
+          author:string
+      }
+      this.http.get<ApiResponse>("http://quotes.stormconsultancy.co.uk/random.json (Links to an external site.)").subscribe(data=>{
+          this.quote= new Quote(data.quote,data.author)
+      })
+    }
+  
   }
-
-  ngOnInit() {
-  }
-
-}
