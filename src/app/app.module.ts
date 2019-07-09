@@ -9,6 +9,7 @@ import { StrikethroughDirective } from './strikethrough.directive';
 import { DateCountPipe } from './date-count.pipe';
 import { GoalFormComponent } from './goal-form/goal-form.component';
 import { from } from 'rxjs';
+import {AlertsService} from './alert-service/alerts.service'
 
 @NgModule({
   declarations: [
@@ -22,9 +23,11 @@ import { from } from 'rxjs';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+  
+
   ],
-  providers: [],
+  providers:  [AlertsService], // Add service to providers
   bootstrap: [AppComponent]
 })
 export class AppModule { }
