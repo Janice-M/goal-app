@@ -1,24 +1,36 @@
 <div class="container">
-    <h1>My Goals</h1>
-    <hr>
-  
+  <ng-progress></ng-progress>
+  <h1>My Goals</h1>
+
+  <hr>
+  <div class="container">
+
     <div class="row">
-      <div class="col-md-6">
-        <div *ngFor='let goal of goals;let i = index'>
-          <div>
-            <h4 id={{i}} appStrikethrough>{{goal.name}} due on {{goal.completeDate|date|uppercase}}</h4>
-            <button (click)='toggleDetails(i)' class="btn btn-primary">Toggle Details</button>
-          </div>
-  
-          <div *ngIf='goal.showDescription'>
-            <app-goal-details  [goal]='goal' (isComplete) = 'deleteGoal($event,i)'></app-goal-details>
-          </div>
+      <blockquote class="text-center text-lg">
+        <p>{{quote.quote}}</p>
+        <footer><cite>{{quote.author}}</cite></footer>
+      </blockquote>
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div *ngFor='let goal of goals;let i = index'>
+        <div>
+          <h4 id={{i}} appStrikethrough>{{goal.name}} due on {{goal.completeDate|date|uppercase}}</h4>
+          <button (click)='toggleDetails(i)' class="btn btn-primary">Toggle Details</button>
+        </div>
+
+        <div *ngIf='goal.showDescription'>
+          <app-goal-details [goal]='goal' (isComplete)='deleteGoal($event,i)'></app-goal-details>
         </div>
       </div>
-      <div class="col-md-6">
-        <app-goal-form (addGoal)="addNewGoal($event)"></app-goal-form>
-      </div>
     </div>
-  
-    <p *ngIf='goals.length > 5'>You have too many goals</p>
+    <div class="col-md-6">
+      <app-goal-form (addGoal)="addNewGoal($event)"></app-goal-form>
+    </div>
   </div>
+
+  <p *ngIf='goals.length > 5'>You have too many goals</p>
+</div>

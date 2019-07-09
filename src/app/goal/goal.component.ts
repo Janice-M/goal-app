@@ -5,13 +5,15 @@ import {Goals} from '../goals'
 import {GoalService} from '../goals/goal.service';
 import {AlertsService} from '../alert-service/alerts.service';
 import {HttpClient} from '@angular/common/http';
+import {QuoteRequestService} from '../quote-http/quote-request.service'
+
 
 import {Quote} from '../quote-class/quote';
 
 @Component({
   selector: 'app-goal',
   templateUrl: './goal.component.html',
-  providers:[GoalService], //add the providers to the component
+  providers:[GoalService,QuoteRequestService], //add the providers to the component
   styleUrls: ['./goal.component.css']
 })
 export class GoalComponent implements OnInit {
@@ -41,20 +43,15 @@ export class GoalComponent implements OnInit {
     goal.completeDate = new Date(goal.completeDate);
     this.goals.push(goal);
   }
-  constructor(goalService:GoalService,alertService:AlertsService,private http:HttpClient) {
+  constructor(goalService:GoalService,alertService:AlertsService,private quoteService:QuoteRequestService) {
     this.goals = goalService.getGoals();
     this.alertService = alertService;
      }
   
-   ngOnInit() {
   
-      interface ApiResponse{
-          quote:string;
-          author:string
-      }
-      this.http.get<ApiResponse>("http://quotes.stormconsultancy.co.uk/random.json (Links to an external site.)").subscribe(data=>{
-          this.quote= new Quote(data.quote,data.author)
-      })
+    ngOnInit() {
+      this.quoteService.quoteRequest()
+      this.quote=this.quoteService.quote
     }
   
   }
