@@ -13,6 +13,8 @@ import {AlertsService} from './alert-service/alerts.service';
 import {HttpClientModule} from '@angular/common/http';
 import { NgProgressModule } from '@ngx-progressbar/core';
 import { NgProgressHttpModule } from '@ngx-progressbar/http';
+import { AboutComponent } from './about/about.component';
+import { RouterModule, Routes } from '@angular/router';
 
 
 
@@ -23,14 +25,15 @@ import { NgProgressHttpModule } from '@ngx-progressbar/http';
     GoalDetailsComponent,
     StrikethroughDirective,
     DateCountPipe,
-    GoalFormComponent
+    GoalFormComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    NgProgressModule.forRoot(),// normal progress bar
+    NgProgressModule,// normal progress bar
     NgProgressHttpModule // progress bar to load http requests
 
   ],
